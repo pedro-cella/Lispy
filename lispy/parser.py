@@ -24,7 +24,7 @@ class LispTransformer(InlineTransformer):
         return Symbol(x)
 
     def string(self, x):
-        return str(x).strip()
+        return str(x)[1:-1]
 
 def parse(src: str):
     """
