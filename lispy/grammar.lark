@@ -1,0 +1,32 @@
+?start  : value+
+
+?value  : atomic
+
+?assert : STRING "=" value
+
+?atomic : INT   -> int
+        | FLOAT -> float
+        | TRUE  -> true
+        | FALSE -> false
+        | SYMBOL -> symbol
+        | STRING -> string
+        
+?list   : "(" SYMBOL value+ value+ ")"
+        | "("value (value)* ")"
+        | "("SYMBOL")"
+        | "(" ")"
+
+?n_list : "(" value (n_list)* ")"
+        | "(" ")"
+ 
+
+// Terminais
+SYMBOL.0  : /[-!+\/*@$%^&~<>?\"|\\\w=]+/
+STRING    : /\"[^\"\\]*(\\[^\n\t\r\f][^\"\\]*)*\"/
+INT.1     : /-?\d+/
+FLOAT.2   : /-?\d+\.\d+/
+TRUE      : /\#t/
+FALSE     : /\#f/
+
+%ignore /\s+/
+%ignore /;[^\n]*/
