@@ -26,6 +26,14 @@ class LispTransformer(InlineTransformer):
     def string(self, x):
         return str(x)[1:-1].replace(r"\n", "\n").replace(r"\t", "\t").replace(r"\"", "\"")
 
+    def list(self, *args): # *args passa um numero nao contabilizado de argumentos, transformando-os numa lista
+        return list(args)
+
+    def nested_list(self, *args):
+        return list(args)
+
+    
+
 def parse(src: str):
     """
     Compila string de entrada e retorna a S-expression equivalente.

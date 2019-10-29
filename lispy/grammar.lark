@@ -4,17 +4,16 @@
 
 ?assert : STRING "=" value
 
-?atomic : INT   -> int
-        | FLOAT -> float
-        | TRUE  -> true
-        | FALSE -> false
+?atomic : INT    -> int
+        | FLOAT  -> float
+        | TRUE   -> true
+        | FALSE  -> false
         | SYMBOL -> symbol
         | STRING -> string
+        | list
         
-?list   : "(" SYMBOL value+ value+ ")"
-        | "("value (value)* ")"
-        | "("SYMBOL")"
-        | "(" ")"
+?list   : "(" ")"
+        | "(" value+")"
 
 ?n_list : "(" value (n_list)* ")"
         | "(" ")"
