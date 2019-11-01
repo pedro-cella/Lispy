@@ -27,7 +27,11 @@ def eval(x, env=None):
     # Comando (if <test> <then> <other>)
     # Ex: (if (even? x) (quotient x 2) x)
     if head == Symbol.IF:
-        return 
+        cond, a, b = args 
+        if eval(cond, env):
+            return eval(a, env)
+        else:
+            return eval(b, env)
 
     # Comando (define <symbol> <expression>)
     # Ex: (define x (+ 40 2))

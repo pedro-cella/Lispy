@@ -12,11 +12,9 @@
         | STRING -> string
         | list
         
-?list   : "(" ")"
-        | "(" value+")"
-
-?n_list : "(" value (n_list)* ")"
-        | "(" ")"
+        
+list   : "(" ")"
+        | "(" value+ ")"
  
 
 // Terminais
