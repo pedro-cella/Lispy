@@ -11,10 +11,16 @@
         | SYMBOL -> symbol
         | STRING -> string
         | list
+        | quote
         
         
 list   : "(" ")"
-        | "(" value+ ")"
+       | "(" value+ ")"
+
+quote  : "'" value
+       
+
+
  
 
 // Terminais
@@ -24,6 +30,8 @@ INT.1     : /-?\d+/
 FLOAT.2   : /-?\d+\.\d+/
 TRUE      : /\#t/
 FALSE     : /\#f/
+
+
 
 %ignore /\s+/
 %ignore /;[^\n]*/

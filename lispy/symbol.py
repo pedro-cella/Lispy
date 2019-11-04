@@ -15,6 +15,9 @@ class Symbol:
             return cls.CACHE[data]
         except KeyError:
             cls.CACHE[data] = new = super().__new__(cls)
+            if not isinstance(data, str):
+                name = type(data).__name__
+                raise TypeError('argument must be a string, got an {name}')
             new._data = data
             return new
 

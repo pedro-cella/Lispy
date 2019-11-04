@@ -36,15 +36,16 @@ def eval(x, env=None):
     # Comando (define <symbol> <expression>)
     # Ex: (define x (+ 40 2))
     elif head == Symbol.DEFINE:
-        symbol, exp = args
-        env[symbol] = result = eval(exp, env)
-        return result
+        symb, expr = args
+        env[symb] = result = eval(expr, env)
+        return None
         
 
     # Comando (quote <expression>)
     # (quote (1 2 3))
     elif head == Symbol.QUOTE:
-        return NotImplemented
+        (_, expr) = x
+        return expr
 
     # Comando (let <expression> <expression>)
     # (let ((x 1) (y 2)) (+ x y))
@@ -54,7 +55,11 @@ def eval(x, env=None):
     # Comando (lambda <vars> <body>)
     # (lambda (x) (+ x 1))
     elif head == Symbol.LAMBDA:
-        return NotImplemented
+        (_, names, body) = x
+        
+        def proc(*args):
+            local = dict(zip(names, args))
+            return eval(body, ChainMap(local, env))
 
     # Lista/chamada de funções
     # (sqrt 4)

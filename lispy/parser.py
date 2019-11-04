@@ -32,6 +32,9 @@ class LispTransformer(InlineTransformer):
     def nested_list(self, *args):
         return list(args)
 
+    def quote(self, x):
+        return (Symbol(x))
+
     
 
 def parse(src: str):
