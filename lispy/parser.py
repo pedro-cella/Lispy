@@ -33,8 +33,7 @@ class LispTransformer(InlineTransformer):
         return list(args)
 
     def quote(self, x):
-        return (Symbol(x))
-
+        return [Symbol.QUOTE, x]
     
 
 def parse(src: str):

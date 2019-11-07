@@ -18,10 +18,6 @@ list   : "(" ")"
        | "(" value+ ")"
 
 quote  : "'" value
-       
-
-
- 
 
 // Terminais
 SYMBOL.0  : /[-!+\/*@$%^&~<>?\"|\\\w=]+/
