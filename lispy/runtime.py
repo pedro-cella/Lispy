@@ -23,7 +23,7 @@ def eval(x, env=None):
 
     # Avalia formas especiais e listas
     head, *args = x
-    
+
     # Comando (if <test> <then> <other>)
     # Ex: (if (even? x) (quotient x 2) x)
     if head == Symbol.IF:
@@ -44,22 +44,29 @@ def eval(x, env=None):
     # Comando (quote <expression>)
     # (quote (1 2 3))
     elif head == Symbol.QUOTE:
-        (_, expr) = x
+        expr = args
         return expr
 
     # Comando (let <expression> <expression>)
     # (let ((x 1) (y 2)) (+ x y))
     elif head == Symbol.LET:
+        (equal, expr) = args # expr1 e expr2 = list
+        local = ChainMap({}, env)
         return NotImplemented
 
     # Comando (lambda <vars> <body>)
-    # (lambda (x) (+ x 1))
+    # (lambda (x 1) (+ x y))
     elif head == Symbol.LAMBDA:
-        (_, names, body) = x
-        
+        (names, body) = args
+
+        #if not all([isinstance(y, (int, float, bool, str)) for y in names]):
+        #     raise TypeError
+
         def proc(*args):
             local = dict(zip(names, args))
             return eval(body, ChainMap(local, env))
+
+        return proc
 
     # Lista/chamada de funções
     # (sqrt 4)
