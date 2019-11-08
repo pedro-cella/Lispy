@@ -52,7 +52,7 @@ def eval(x, env=None):
     elif head == Symbol.LET:
         (equal, expr) = args # expr1 e expr2 = list
         local = ChainMap({}, env)
-        return 
+        return NotImplemented
 
     # Comando (lambda <vars> <body>)
     # (lambda (x 1) (+ x y))

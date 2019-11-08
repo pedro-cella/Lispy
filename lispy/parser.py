@@ -15,10 +15,10 @@ class LispTransformer(InlineTransformer):
         return float(f)
 
     def true(self, x):
-        return bool(x=True)
+        return True
  
     def false(self, x):
-        return bool(x=False)
+        return False
 
     def symbol(self, x):
         return Symbol(x)
