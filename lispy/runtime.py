@@ -23,7 +23,7 @@ def eval(x, env=None):
 
     # Avalia formas especiais e listas
     head, *args = x
-    
+
     # Comando (if <test> <then> <other>)
     # Ex: (if (even? x) (quotient x 2) x)
     if head == Symbol.IF:
@@ -50,16 +50,23 @@ def eval(x, env=None):
     # Comando (let <expression> <expression>)
     # (let ((x 1) (y 2)) (+ x y))
     elif head == Symbol.LET:
-        return NotImplemented
+        (equal, expr) = args # expr1 e expr2 = list
+        local = ChainMap({}, env)
+        return 
 
     # Comando (lambda <vars> <body>)
-    # (lambda (x) (+ x 1))
+    # (lambda (x 1) (+ x y))
     elif head == Symbol.LAMBDA:
-        (_, names, body) = x
-        
+        (names, body) = args
+
+        #if not all([isinstance(y, (int, float, bool, str)) for y in names]):
+        #     raise TypeError
+
         def proc(*args):
             local = dict(zip(names, args))
             return eval(body, ChainMap(local, env))
+
+        return proc
 
     # Lista/chamada de funções
     # (sqrt 4)
@@ -76,10 +83,8 @@ def env(*args, **kwargs):
     """
     Retorna um ambiente de execução que pode ser aproveitado pela função
     eval().
-
     Aceita um dicionário como argumento posicional opcional. Argumentos nomeados
     são salvos como atribuições de variáveis.
-
     Ambiente padrão
     >>> env()
     {...}
