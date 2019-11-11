@@ -12,12 +12,24 @@
         | STRING -> string
         | list
         | quote
+        | op
+        | let
+        | if
         
         
 list   : "(" ")"
        | "(" value+ ")"
 
 quote  : "'" value
+
+op : "[" value  symbol value "]"
+
+symbol: SYMBOL
+
+let : ":" "let" "{" (symbol "=" value)* "}" "in" list
+
+if  : ":" "if" value "then" ":" value (":" "elif" value "then" ":" value)+ (":" "else" ":" value)?
+    | ":" "if" value "then" ":" value (":" "else" ":" value)?
 
 // Terminais
 SYMBOL.0  : /[-!+\/*@$%^&~<>?\"|\\\w=]+/
@@ -26,8 +38,6 @@ INT.1     : /-?\d+/
 FLOAT.2   : /-?\d+\.\d+/
 TRUE      : /\#t/
 FALSE     : /\#f/
-
-
 
 %ignore /\s+/
 %ignore /;[^\n]*/

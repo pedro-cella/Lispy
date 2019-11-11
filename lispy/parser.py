@@ -34,6 +34,18 @@ class LispTransformer(InlineTransformer):
 
     def quote(self, x):
         return [Symbol.QUOTE, x]
+
+    def op(self, *args):
+        op = [args[1], args[0], args[2]]
+        return (op)
+
+    def let(self, *args):
+        *expr1, expr2 = args
+        d = []
+        l = d
+        for i in range(0, len(expr1), 2):
+            l.append([expr1[i], expr1[i+1]])
+        return [Symbol.LET, d, expr2]
     
 
 def parse(src: str):
