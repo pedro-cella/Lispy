@@ -51,8 +51,12 @@ def eval(x, env=None):
     # (let ((x 1) (y 2)) (+ x y))
     elif head == Symbol.LET:
         (equal, expr) = args # expr1 e expr2 = list
-        local = ChainMap({}, env)
-        return NotImplemented
+        local = {}
+        for i in equal:
+            local[i[0]] = eval(i[1], env)
+
+        return eval(expr, ChainMap(local, global_env))
+        return local
 
     # Comando (lambda <vars> <body>)
     # (lambda (x 1) (+ x y))
