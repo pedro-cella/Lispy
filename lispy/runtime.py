@@ -63,8 +63,11 @@ def eval(x, env=None):
     elif head == Symbol.LAMBDA:
         (names, body) = args
 
-        #if not all([isinstance(y, (int, float, bool, str)) for y in names]):
-        #     raise TypeError
+        for name in names:
+            if isinstance(name, Symbol):
+                pass
+            else:
+                raise TypeError
 
         def proc(*args):
             local = dict(zip(names, args))
