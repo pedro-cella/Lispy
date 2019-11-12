@@ -8,13 +8,13 @@
         | FLOAT  -> float
         | TRUE   -> true
         | FALSE  -> false
-        | SYMBOL -> symbol
+        | symbol
         | STRING -> string
         | list
         | quote
         | op
         | let
-        | if
+        | cond_if
         
         
 list   : "(" ")"
@@ -28,8 +28,8 @@ symbol: SYMBOL
 
 let : ":" "let" "{" (symbol "=" value)* "}" "in" list
 
-if  : ":" "if" value "then" ":" value (":" "elif" value "then" ":" value)+ (":" "else" ":" value)?
-    | ":" "if" value "then" ":" value (":" "else" ":" value)?
+cond_if  : ":""if" value "then" ":" value (":" "elif" value "then" ":" value)+ (":" "else" ":" value)? 
+         | ":""if" value "then" ":" value (":" "else" ":" value)?
 
 // Terminais
 SYMBOL.0  : /[-!+\/*@$%^&~<>?\"|\\\w=]+/

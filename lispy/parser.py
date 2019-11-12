@@ -47,6 +47,18 @@ class LispTransformer(InlineTransformer):
             l.append([expr1[i], expr1[i+1]])
         return [Symbol.LET, d, expr2]
     
+    def cond_if(self, *args):
+        cond, a, b = args
+        if cond == True:
+            return a
+        else:
+            return b
+
+    def cond_if(self, x, y, z):
+        return list(tuple((Symbol.IF, x, y, z)))
+
+    def cond_if_alt(self, x, y, z):
+        return list(tuple((Symbol.IF, x, y, z)))
 
 def parse(src: str):
     """
